@@ -1,10 +1,24 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Table,  Button} from 'flowbite-react'
 import Pagination from './Pagination';
 
-const MemberTable = ({ members, onEdit }) => {
+const MemberTable = ({ members, onEdit, onDelete }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const membersPerPage = 10;
+  const [membersPerPage, setMembersPerpage] = useState(15);
+
+  useEffect(()=>{
+    const updateMembersPerPage = () => {
+      if(window.innerWidth < 900){
+        setMembersPerpage(12);
+      }else{
+        setMembersPerpage(15);
+      }
+    }
+
+    updateMembersPerPage();
+
+    window.addEventListener('resize', updateMembersPerPage);
+  })
 
   const indexOfLastMember = currentPage * membersPerPage;
   const indexOfFirstMember = indexOfLastMember - membersPerPage
@@ -25,7 +39,7 @@ const MemberTable = ({ members, onEdit }) => {
   
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto h-full">
       <Table hoverable>
         <Table.Head>
           <Table.HeadCell>Name</Table.HeadCell>
@@ -35,20 +49,25 @@ const MemberTable = ({ members, onEdit }) => {
           <Table.HeadCell>Actions</Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
+        {false && (
+          <div className="absolute left-0 top-0 -z-10">
+          </div>  
+        )}
+
           {currentMembers.map((member) => (
-            <Table.Row key={member.id} className="bg-white hover:bg-gray-50">
+            <Table.Row key={member.id} className="bg-white hover:bg-gray-50 ">
               <Table.Cell className="font-medium text-gray-900">
                 {member.name}
               </Table.Cell>
               <Table.Cell>{member.email}</Table.Cell>
               <Table.Cell>{member.role}</Table.Cell>
               <Table.Cell>{formatPermissions(member.permissions)}</Table.Cell>
-              <Table.Cell>
-                <Button size="xs" color='red' onClick={() => onEdit(member)} className="mr-2"
+              <Table.Cell className='flex pr-2' >
+                <Button size="md" color='red' onClick={() => onEdit(member)} className="mr-2"
                 >
                   Edit
                 </Button>
-                <Button size="xs" color="red">
+                <Button size="md" color="red" onClick={() => onDelete(member.id)} >
                   Delete
                 </Button>
               </Table.Cell>

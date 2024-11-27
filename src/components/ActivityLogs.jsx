@@ -4,9 +4,10 @@ import { selectLogs } from '../redux/slices/activityLogsSlics';
 
 const ActivityLogs = () => {
   const logs = useSelector(selectLogs);
+  
 
   return (
-    <div className='max-w-7xl mx-auto flex justify-center items-center flex-col'>
+    <div className='max-w-7xl mx-auto flex justify-center items-center flex-col '>
       <h1 className="text-2xl font-bold mb-4">Activity Logs</h1>
       {logs.length === 0 ? (
         <p>No logs available.</p>

@@ -2,7 +2,7 @@ import React from "react";
 
 const Homepage = () => {
   return (
-    <div className="flex flex-col justify-center items-center relative  text-white overflow-hidden h-[90vh]">
+    <div className="flex flex-col justify-center items-center relative  text-white overflow-hidden min-h-screen">
       <svg
         className="absolute top-0 left-0 w-64 h-64 text-blue-500 opacity-20 animate-spin-slow"
         xmlns="http://www.w3.org/2000/svg"

@@ -9,7 +9,7 @@ const App = () => {
     <Router>
       <div >
           <Sidebar />
-          <div className='flex-grow p-6' >
+          <div className='flex-grow' >
             <Routes>
               <Route path='/' element={<Homepage />} />
               <Route path='/dashboard' element={<MemberManagement />} />

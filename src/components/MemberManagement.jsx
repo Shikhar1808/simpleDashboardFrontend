@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
 import AddNewMember from './AddNewMember';
 import MemberTable from './MemberTable';
 import EditMember from './EditMember';
@@ -21,48 +22,100 @@ const MemberManagement = () => {
     const [members, setMembers] = useState([]);
     const [isAddMemberComponentOpen, setAddMemberComponentOpen] = useState(false);
     const [edittingMember, setEdittingMember] = useState(null);
+    const [logs, setLogs] = useState([]);
     const dispatch = useDispatch();
 
-    useEffect(() =>{
-        // if(!sessionStorage.getItem('membersLoaded')){
-        //     sessionStorage.setItem('membersLoaded', true);
-        // }
-        setMembers(mockMembers);
-    },[])
+    const apiBaseUrl = 'http://localhost:5000/api';
 
-    const addMember = (newMember) =>{
-        setMembers([...members, {...newMember, id: members.length +1, permissions: {}}]);
-
-        const newLog = {
-            action:  'Add Member',
-            member: newMember,
-            timestamp: new Date().toISOString(),
-            changes: null
-        }
-        dispatch(addLog(newLog));
-    }
-
-    const updateMember = (updatedMember) =>{
-        setMembers(members.map(member =>
-            member.id === updatedMember.id ? updatedMember : member
-        ))
-        
-        console.log(updatedMember);
-        const newLog = {
-            action:  'Update Member',
-            member: updatedMember,
-            timestamp: new Date().toISOString(),
-            changes: {
-                name: updatedMember.name,
-                email: updatedMember.email,
-                role: updatedMember.role,
-                permissions: updatedMember.permissions
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            // const response = await axios.get('https://example.com/api/members');
+            const [memberResponse, logResponse] = await Promise.all([
+                axios.get(`${apiBaseUrl}/members`), 
+                axios.get(`${apiBaseUrl}/logs`)
+            ]);
+            setLogs(logResponse.data || []);
+            console.log(memberResponse.data);
+            if (memberResponse.data && memberResponse.data.length > 0) {
+              setMembers(memberResponse.data);
+            } else {
+              console.warn('No members found in API response, using mock data.');
+              setMembers(mockMembers);
             }
-        }
-        dispatch(addLog(newLog));
+          } catch (error) {
+            console.error('Error fetching members:', error);
+            setMembers(mockMembers);
+          }
+        };
+    
+        fetchData();
+      }, []);
 
-        setEdittingMember(null);
-    }
+      const addLogEntry = async (newLog) => {
+        try {
+          const response = await axios.post(`${apiBaseUrl}/members`, newLog);
+          setLogs([...logs, response.data]);
+          dispatch(addLog(response.data));
+        } catch (error) {
+          console.error('Error adding log entry:', error);
+        }
+      }
+
+      const addMember = async (newMember) => {
+        try {
+          const response = await axios.post(`${apiBaseUrl}/members`, newMember);
+          setMembers([...members, response.data]);
+
+          console.log(response.data);
+          
+          const newLog = {
+              action: 'Add Member',
+              member: response.data,
+              timestamp: new Date().toISOString(),
+            };
+            await addLogEntry(newLog);
+        } catch (error) {
+          console.error('Error adding member:', error);
+        }
+      };
+
+      const updateMember = async (updatedMember) => {
+        try {
+          const response = await axios.put(`${apiBaseUrl}/members/${updatedMember.id}`, updatedMember);
+          setMembers(
+            members.map((member) => (member.id === updatedMember.id ? response.data : member))
+          );
+    
+          const newLog = {
+            action: 'Update Member',
+            member: response.data,
+            timestamp: new Date().toISOString(),
+            changes: updatedMember,
+          };
+          await addLogEntry(newLog);
+          setEditingMember(null);
+        } catch (error) {
+          console.error('Error updating member:', error);
+        }
+      };
+
+      const deleteMember = async (memberId) => {
+        try {
+            console.log(memberId);
+          await axios.delete(`${apiBaseUrl}/members/${memberId}`);
+          setMembers(members.filter((member) => member.id !== memberId));
+    
+          const newLog = {
+            action: 'Delete Member',
+            memberId,
+            timestamp: new Date().toISOString(),
+          };
+          await addLogEntry(newLog);
+        } catch (error) {
+          console.error('Error deleting member:', error);
+        }
+      };
 
     const handleEditMember = (member) =>{
         setEdittingMember(member);
@@ -70,9 +123,9 @@ const MemberManagement = () => {
 
 
   return (
-    <div className='max-w-7xl lg:pl-20 mx-auto relative overflow-hidden max-md:max-w-sm ' >
-        <div className={`${isAddMemberComponentOpen? 'opacity-50': ""}  `}  >
-            {/* <div> */}
+    <div className='max-w-7xl pl-20 mx-auto relative overflow-hidden max-md:max- top-20' >
+        <div className={`${isAddMemberComponentOpen? 'opacity-50': ""} flex flex-col justify-center gap-10`}  >
+            <div>
                 <h1 className='text-2xl font-bold mb-6' >Member Management</h1>
 
                 <button
@@ -81,8 +134,12 @@ const MemberManagement = () => {
                 >
                     Add New Member
                 </button>
-            {/* </div> */}
-            <MemberTable members={members} onEdit={handleEditMember} />
+            </div>
+            <MemberTable members={members} onEdit={handleEditMember} onDelete={deleteMember} />
+
+            <div>
+                {window.innerWidth < 768 && <div className="absolute bottom-0">Scroll</div>}
+            </div>
         </div>
 
         {isAddMemberComponentOpen && <AddNewMember onClose={() => setAddMemberComponentOpen(false)}  onSave={addMember} />}
