@@ -29,26 +29,32 @@ const Homepage = () => {
         }}
       ></div>
 
-      <div className="mt-8 text-center">
-        <h1 className="text-4xl font-bold animate-pulse text-black">
-          Welcome to Role Based Access Control Dashboard
-        </h1>
-        <p className="mt-4 text-gray-400">
-          This is a very basic admin dashboard for CRUD operations
-        </p>
-        <p className="mt-4 text-gray-400">
-          In this dashboard, I am using assuming that you are an Admin because i think only admins can access
-        </p>
-        <p className="mt-4 text-gray-400">
-        the member dashboard because i think only admins can access the member dashboard
-        </p>
-        <p className="mt-4 text-gray-400">
-        I used redux for state management and axios for API calls
-        </p>
-        <p className="mt-4 text-gray-400">
-        This dashboard also logs the changes made by the admin
-        </p>
-      </div>
+<div className="mt-8 text-center flex justify-center items-center flex-col px-4 sm:px-8 md:px-16 pl-20">
+  <h1 className="text-4xl sm:text-3xl md:text-4xl font-bold animate-pulse text-black">
+    Welcome to Role-Based Access Control Dashboard
+  </h1>
+  
+  <p className="mt-4 text-gray-400 text-sm sm:text-base md:text-lg">
+    This is a very basic admin dashboard for CRUD operations.
+  </p>
+  
+  <p className="mt-4 text-gray-400 text-sm sm:text-base md:text-lg">
+    In this dashboard, I'm assuming that you are an Admin because I think only admins can access the member dashboard.
+  </p>
+  
+  <p className="mt-4 text-gray-400 text-sm sm:text-base md:text-lg">
+    The member dashboard is restricted to admins, as they have the necessary permissions.
+  </p>
+  
+  <p className="mt-4 text-gray-400 text-sm sm:text-base md:text-lg">
+    I used Redux for state management and Axios for API calls.
+  </p>
+  
+  <p className="mt-4 text-gray-400 text-sm sm:text-base md:text-lg">
+    This dashboard also logs the changes made by the admin.
+  </p>
+</div>
+
 
       <div className="mt-12">
         <a
