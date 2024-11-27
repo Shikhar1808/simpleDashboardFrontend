@@ -33,18 +33,30 @@ const Homepage = () => {
         <h1 className="text-4xl font-bold animate-pulse text-black">
           Welcome to Admin Dashboard
         </h1>
-        <p className="mt-4 text-gray-300">
-          Manage users, roles, and permissions efficiently with our Role-Based
-          Access Control system.
+        <p className="mt-4 text-gray-400">
+          This is a very basic admin dashboard for CRUD operations
+        </p>
+        <p className="mt-4 text-gray-400">
+          In this dashboard, I am using assuming that you are an Admin because i think only admins can access
+        </p>
+        <p className="mt-4 text-gray-400">
+        the member dashboard because i think only admins can access the member dashboard
+        </p>
+        <p className="mt-4 text-gray-400">
+        I used redux for state management and axios for API calls
+        </p>
+        <p className="mt-4 text-gray-400">
+        This dashboard also logs the changes made by the admin
         </p>
       </div>
 
       <div className="mt-12">
-        <button
-          className="px-6 py-3 text-lg font-semibold text-gray-900 bg-white rounded-md shadow-md hover:shadow-lg hover:scale-105 transform transition duration-300"
+        <a
+          href="/dashboard"
+          className="px-6 py-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full shadow-lg text-white font-semibold hover:from-blue-600 hover:to-purple-700"
         >
-          Learn More
-        </button>
+          Go to Dashboard
+        </a>
       </div>
 
       <svg
