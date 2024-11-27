@@ -36,9 +36,20 @@ Ensure that the following software is installed:
 - **Node.js**: Version 16 or higher.
 - **npm**: Version 7 or higher (or yarn).
 
-### Steps
+## Usage
 
-1. **Clone the repository**:
+- **Adding Members**: Click the "Add New Member" button to open the form and add a new member.
+- **Editing Members**: Click on any member in the table to edit their details.
+- **Sorting**: Click the dropdown to sort members by Name, Role, or Email.
+- **Filtering**: Filter members by Role or Permission.
+- **Search**: Use the search bar to search for members by name, email, or role.
 
-   ```bash
-   git clone https://github.com/yourusername/frontend-dashboard.git
+### Key Files:
+
+- `src/components/MemberManagement.js`: Main component where member management functionality is handled (sorting, filtering, search).
+- `src/components/AddNewMember.js`: Component for adding new members.
+- `src/components/MemberTable.js`: Component that displays the member data in a table.
+- `src/redux/slices/membersSlice.js`: Redux slice for managing member data.
+- `src/redux/slices/activityLogsSlics.js`: Redux slice for logging activity (add, update, delete actions).
+- `src/utils/api.js`: Contains API call functions (e.g., to fetch members from the backend).
+- `tailwind.config.js`: TailwindCSS configuration file.
