@@ -153,7 +153,7 @@ const MemberManagement = () => {
     });
 
   return (
-    <div className='max-w-7xl pl-20 mx-auto relative overflow-hidden max-md:max- top-20'>
+    <div className='max-w-7xl pl-20 mx-auto relative overflow-y-hidden max-md:max- top-20'>
       <div className={`${isAddMemberComponentOpen ? 'opacity-50' : ''} flex flex-col justify-center gap-10`}>
         <div>
           <h1 className='text-2xl font-bold mb-6'>Member Management</h1>

@@ -39,7 +39,7 @@ const MemberTable = ({ members, onEdit, onDelete }) => {
   
 
   return (
-    <div className="overflow-x-auto h-full">
+    <div className=" h-full">
       <Table hoverable>
         <Table.Head>
           <Table.HeadCell>Name</Table.HeadCell>

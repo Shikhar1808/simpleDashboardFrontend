@@ -22,7 +22,7 @@ const Homepage = () => {
       </svg>
 
       <div
-        className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full animate-bounce shadow-xl"
+        className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full animate-bounce shadow-xl max-md:left-8 relative "
         style={{
           backgroundImage: 'url("/logo.png")',
           backgroundSize: "cover",
@@ -56,7 +56,7 @@ const Homepage = () => {
 </div>
 
 
-      <div className="mt-12">
+      <div className="mt-12 max-md:pl-20">
         <a
           href="/dashboard"
           className="px-6 py-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full shadow-lg text-white font-semibold hover:from-blue-600 hover:to-purple-700"
