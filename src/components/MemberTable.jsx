@@ -9,9 +9,9 @@ const MemberTable = ({ members, onEdit, onDelete }) => {
   useEffect(()=>{
     const updateMembersPerPage = () => {
       if(window.innerWidth < 900){
-        setMembersPerpage(12);
+        setMembersPerpage(8);
       }else{
-        setMembersPerpage(15);
+        setMembersPerpage(12);
       }
     }
 

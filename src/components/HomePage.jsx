@@ -31,7 +31,7 @@ const Homepage = () => {
 
       <div className="mt-8 text-center">
         <h1 className="text-4xl font-bold animate-pulse text-black">
-          Welcome to Admin Dashboard
+          Welcome to Role Based Access Control Dashboard
         </h1>
         <p className="mt-4 text-gray-400">
           This is a very basic admin dashboard for CRUD operations
